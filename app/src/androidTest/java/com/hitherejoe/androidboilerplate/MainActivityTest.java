@@ -32,6 +32,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
+// TODO: 8/15/16 11 test wth espresso
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class MainActivityTest {
