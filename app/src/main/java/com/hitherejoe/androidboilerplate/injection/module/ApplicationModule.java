@@ -14,6 +14,8 @@ import dagger.Provides;
 /**
  * Provide application-level dependencies. Mainly singleton object that can be injected from
  * anywhere in the app.
+ *
+ * // TODO: 8/15/16 3 declare module
  */
 @Module
 public class ApplicationModule {
@@ -34,6 +36,7 @@ public class ApplicationModule {
         return mApplication;
     }
 
+    // declare retrofit service
     @Provides
     @Singleton
     AndroidBoilerplateService provideAndroidBoilerplateService() {

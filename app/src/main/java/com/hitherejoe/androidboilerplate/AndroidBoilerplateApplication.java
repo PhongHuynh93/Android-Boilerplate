@@ -17,6 +17,7 @@ public class AndroidBoilerplateApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // TODO: 8/15/16 1 - cout log in debug config
         if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
 
         mApplicationComponent = DaggerApplicationComponent.builder()
@@ -25,10 +26,12 @@ public class AndroidBoilerplateApplication extends Application {
         mApplicationComponent.inject(this);
     }
 
+    // : 8/15/16 2 - get app context
     public static AndroidBoilerplateApplication get(Context context) {
         return (AndroidBoilerplateApplication) context.getApplicationContext();
     }
 
+    // : 8/15/16 3 - get component
     public ApplicationComponent getComponent() {
         return mApplicationComponent;
     }

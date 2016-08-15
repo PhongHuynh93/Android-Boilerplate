@@ -11,6 +11,7 @@ import com.hitherejoe.androidboilerplate.ui.fragment.DetailFragment;
 
 import dagger.Component;
 
+// TODO: 8/15/16 6b declare activity component and inject
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {

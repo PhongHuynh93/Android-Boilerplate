@@ -44,15 +44,24 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // TODO: 8/15/16 6 inject component
         activityComponent().inject(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        // TODO: 8/15/16 7 declare subscription
+        // declare subscription that contain set of subcription
         mSubscriptions = new CompositeSubscription();
+        // todo 8 declare toolbar
         setupToolbar();
+        // todo 9 declare recylerview
         setupRecyclerView();
+        // todo 10 set character to list
         loadCharacters();
     }
 
+    // TODO: 8/15/16 7b remember to unsubscribe
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -75,18 +84,22 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    // TODO: 8/15/16 8b this act contains toolbar
     private void setupToolbar() {
         setSupportActionBar(mToolbar);
     }
 
     private void setupRecyclerView() {
+        // TODO: 8/15/16 9b - declare recyclerview
         mCharactersRecycler.setLayoutManager(new LinearLayoutManager(this));
         mCharactersRecycler.setAdapter(mCharacterAdapter);
 
+        // TODO: 8/15/16 9d - declare swipelayout
         mSwipeRefresh.setColorSchemeResources(R.color.primary);
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                // TODO: 8/15/16 9e - when swipe, reset data to empty, load char again
                 mCharacterAdapter.setCharacters(new ArrayList<Character>());
                 loadCharacters();
             }
@@ -94,6 +107,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void loadCharacters() {
+        // TODO: 8/15/16 10a - check the network first before load datas to list
         if (DataUtils.isNetworkAvailable(this)) {
             int[] characterIds = getResources().getIntArray(R.array.characters);
             mSubscriptions.add(mDataManager.getCharacters(characterIds)
@@ -105,6 +119,8 @@ public class MainActivity extends BaseActivity {
 
                         }
 
+                        // TODO: 8/15/16 10b if fail, print the log, remove progress bar, force stop refresh, create a dialog to inform to user
+
                         @Override
                         public void onError(Throwable error) {
                             Timber.e("There was an error retrieving the characters " + error);
@@ -113,6 +129,7 @@ public class MainActivity extends BaseActivity {
                             DialogFactory.createSimpleErrorDialog(MainActivity.this).show();
                         }
 
+                        // TODO: 8/15/16 10c - update adapter
                         @Override
                         public void onNext(List<Character> characters) {
                             mProgressBar.setVisibility(View.GONE);
@@ -120,7 +137,9 @@ public class MainActivity extends BaseActivity {
                             mCharacterAdapter.setCharacters(characters);
                         }
                     }));
-        } else {
+        }
+        // todo 10d if there is not a network, remove progressbar and swiperefresh + create a dialog
+        else {
             mProgressBar.setVisibility(View.GONE);
             mSwipeRefresh.setRefreshing(false);
             DialogFactory.createSimpleOkErrorDialog(

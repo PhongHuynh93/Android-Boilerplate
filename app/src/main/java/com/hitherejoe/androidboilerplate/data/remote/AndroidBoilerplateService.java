@@ -18,6 +18,7 @@ public interface AndroidBoilerplateService {
 
     String ENDPOINT = "http://swapi.co/api/";
 
+    // TODO: 8/15/16 4 declare retrofit endpoint
     @GET("people/{personId}")
     Observable<Character> getCharacter(@Path("personId") int id);
 
@@ -25,7 +26,7 @@ public interface AndroidBoilerplateService {
      * Factory class that sets up a new boilerplate service
      *******/
     class Factory {
-
+        // TODO: 8/15/16 5 declare retrofit service
         public static AndroidBoilerplateService makeAndroidBoilerplateService(Context context) {
             OkHttpClient okHttpClient = new OkHttpClient();
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
